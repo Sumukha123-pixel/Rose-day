@@ -1,1 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day</title>
 
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    background: linear-gradient(to bottom, #ff6f6f, #f3b1b1);
+  }
+
+  /* BACKGROUND HEARTS */
+  .hearts {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .heart {
+    position: absolute;
+    bottom: -20px;
+    opacity: 0.4;
+    animation: float 8s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0); opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { transform: translateY(-900px); opacity: 0; }
+  }
+
+  /* NOTE CARD */
+  .note {
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-2deg);
+    background: #fff8fb;
+    padding: 22px 32px;
+    border-radius: 16px;
+    box-shadow:
+      0 10px 30px rgba(0,0,0,0.2),
+      inset 0 0 0 2px #ffd1e1;
+    z-index: 2;
+    animation: noteFloat 4s ease-in-out infinite;
+  }
+
+  @keyframes noteFloat {
+    0% { transform: translateY(-50%) rotate(-2deg); }
+    50% { transform: translateY(-54%) rotate(-1deg); }
+    100% { transform: translateY(-50%) rotate(-2deg); }
+  }
+
+  .note h1 {
+    margin: 0;
+    font-size: 34px;
+    color: #ff4f8b;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  /* BOUQUET */
+  .bouquet {
+    position: absolute;
+    right: -220px;
+    top: 50%;
+    width: 55%;
+    transform: translateY(-50%);
+    z-index: 2;
+    pointer-events: none;
+    animation: bouquetMove 6s ease-in-out infinite;
+  }
+
+  @keyframes bouquetMove {
+    0% { transform: translateY(-50%) scale(1); }
+    50% { transform: translateY(-53%) scale(1.03); }
+    100% { transform: translateY(-50%) scale(1); }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- HEARTS BACKGROUND -->
+<div class="hearts" id="hearts"></div>
+
+<!-- NOTE -->
+<div class="note">
+  <h1>HAPPY ROSE DAY 🌹</h1>
+  <p>
+    A rose is soft only till it wilts; your kindness stays strong even on hard days.<br>
+    A rose has thorns, but you handle everything with patience and grace.
+  </p>
+</div>
+
+
+<!-- BOUQUET -->
+<img src="bouquet.png" class="bouquet" alt="Rose Bouquet">
+
+<!-- HEART SCRIPT -->
+<script>
+  const heartsContainer = document.getElementById("hearts");
+  const hearts = ["💗", "💖", "💕"];
+
+  function spawnHeart() {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.fontSize = 14 + Math.random() * 18 + "px";
+    h.style.animationDuration = 6 + Math.random() * 5 + "s";
+
+    heartsContainer.appendChild(h);
+    setTimeout(() => h.remove(), 12000);
+  }
+
+  setInterval(spawnHeart, 450);
+</script>
+<a href="page2.html" style="position:fixed;bottom:30px;left:30px;color:white;">
+  Next →
+</a>
+
+</body>
+</html>

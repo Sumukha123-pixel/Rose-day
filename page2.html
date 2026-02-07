@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rose Day 💗</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Georgia", serif;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(#ffd1dc, #ffe6f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MAIN CONTAINER */
+#scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* CAT */
+#cat {
+  position: absolute;
+  bottom: -300px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  cursor: pointer;
+  animation: catEnter 1.6s ease forwards;
+  z-index: 10;
+}
+
+@keyframes catEnter {
+  to { bottom: 120px; }
+}
+
+/* MESSAGE NOTE */
+#note {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  background: #fff;
+  padding: 25px 35px;
+  border-radius: 12px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+  font-size: 22px;
+  text-align: center;
+  opacity: 0;
+  transition: 0.8s ease;
+  z-index: 12;
+}
+
+/* NIGHT OVERLAY */
+#night {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at top, #1b2a4a, #05070f);
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 1;
+}
+
+/* MOON */
+#moon {
+  position: fixed;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: #fff2c9;
+  top: -150px;
+  right: 10%;
+  box-shadow: 0 0 40px #fff2c9;
+  transition: top 2s ease;
+  z-index: 3;
+}
+
+/* STARS */
+#stars {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease;
+  z-index: 2;
+}
+
+#stars::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, white, transparent),
+    radial-gradient(1px 1px at 80% 40%, white, transparent),
+    radial-gradient(1px 1px at 50% 70%, white, transparent),
+    radial-gradient(1px 1px at 70% 20%, white, transparent),
+    radial-gradient(1px 1px at 30% 80%, white, transparent);
+  animation: flicker 3s infinite alternate;
+}
+
+@keyframes flicker {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
+
+/* SHOOTING STAR */
+.shooting-star {
+  position: fixed;
+  width: 2px;
+  height: 30px;
+  background: linear-gradient(white, transparent);
+  top: -100px;
+  animation: shoot 1.2s linear forwards;
+  z-index: 4;
+}
+
+@keyframes shoot {
+  to {
+    transform: translate(-300px, 600px);
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="scene">
+  <img id="cat" src="cat.png" alt="Cat">
+
+<div id="note">
+  💗 Happy Rose Day 💗<br><br>
+  A rose blooms for a moment and slowly fades away,<br>
+  But your kindness and warmth stay, day after day 🌹<br><br>
+  It carries beauty, yet guarded by thorns it stands,<br>
+  You carry grace, healing hearts with gentle hands.<br><br>
+  A rose depends on sunlight, season, and care,<br>
+  You shine on your own, love follows you everywhere.
+</div>
+
+<div id="night"></div>
+<div id="stars"></div>
+<div id="moon"></div>
+
+<script>
+const cat = document.getElementById("cat");
+const note = document.getElementById("note");
+const night = document.getElementById("night");
+const stars = document.getElementById("stars");
+const moon = document.getElementById("moon");
+
+cat.addEventListener("click", () => {
+  /* Cat vanishes */
+  cat.style.opacity = "0";
+  cat.style.transform = "translateX(-50%) scale(0.6)";
+  cat.style.pointerEvents = "none";
+
+  /* Show note */
+  note.style.opacity = "1";
+  note.style.transform = "translateX(-50%) scale(1)";
+
+  /* Night mode */
+  setTimeout(() => {
+    night.style.opacity = "1";
+    stars.style.opacity = "1";
+    moon.style.top = "10%";
+    startShootingStars();
+  }, 400);
+});
+
+/* Shooting stars */
+function startShootingStars() {
+  setInterval(() => {
+    if (Math.random() > 0.001) {
+      const star = document.createElement("div");
+      star.className = "shooting-star";
+      star.style.left = Math.random() * window.innerWidth + "px";
+      document.body.appendChild(star);
+      setTimeout(() => star.remove(), 1500);
+    }
+  }, 1200);
+}
+</script>
+
+</body>
+</html>
